@@ -5,13 +5,14 @@ const express = require('express') // Подключение express
 const sequelize = require('./db') // Импорт настроек для работы с БД
 const models = require('./models/models') // Импорт моделей
 const cors = require('cors') // Для отправки запросов с браузера
+const router = require('./routes/index') // Импорт главного роутера
 
 const PORT = process.env.PORT || 5000 // Прослушка порта из переменной окружения 
 
 const app = express() //
 app.use(cors())
 app.use(express.json()) // Для парсинга json формата
-
+app.use('/api', router) // url, router
 
 const start = async () => { // Подключение к БД
 	try {
