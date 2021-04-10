@@ -1,10 +1,10 @@
 const Router = require('express') // Подключение роутера
-
+const typeController = require('../controllers/typeController')
 const router = new Router() // Создание объекта роутер
 
 // Методы по работе с типами
 
-router.post('/',) // Создание типа
-router.get('/',) // Получение типа
+router.post('/', typeController.create) // Создание типа
+router.get('/', typeController.getAll) // Получение типа
 
 module.exports = router
