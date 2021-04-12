@@ -43,11 +43,8 @@ class UserController { // Контроллер для пользователя
 	}
 
 	async check(req, res, next) { // Проверка
-		const { id } = req.query
-		if (!id) {
-			return next(ApiError.badRequest('Не задан Id'))
-		}
-		res.json(id)
+		const token = generateJwt(req.user.id, req.user.email, req.user.role)
+		res.json({ token })
 	}
 }
 
