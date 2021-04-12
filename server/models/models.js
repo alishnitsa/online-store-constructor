@@ -41,13 +41,13 @@ const Rating = sequelize.define('rating', { // Рейтинг
 	rate: { type: DataTypes.INTEGER, allowNull: false }, // Оценка 
 })
 
-const DeviceInfo = sequelize.define('device_info', { // Информация о девайсе
+const DeviceInfo = sequelize.define('info', { // Информация о девайсе
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true }, // Id
 	title: { type: DataTypes.STRING, allowNull: false }, // Название характеристики
 	description: { type: DataTypes.STRING, allowNull: false }, // Описание характеристики
 })
 
-const TypeBrand = sequelize.define('device_info', { // Временной таблица для связи М - М между моделями Тип и Бренд
+const TypeBrand = sequelize.define('type_brand', { // Временной таблица для связи М - М между моделями Тип и Бренд
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true }, // Id
 })
 
@@ -74,7 +74,7 @@ Rating.belongsTo(Device) // Рейтинг пренадлежит девайсу
 Device.hasMany(BasketDevice) // 1 - M
 BasketDevice.belongsTo(Device) // Корзина девайсов пренадлежит девайсу
 
-Device.hasMany(DeviceInfo) // 1 - M
+Device.hasMany(DeviceInfo, { as: 'info' }) // 1 - M
 DeviceInfo.belongsTo(Device) // Информация девайса пренадлежит девайсу
 
 Type.belongsToMany(Brand, { through: TypeBrand }) // M - M
