@@ -1,6 +1,8 @@
 import React from 'react'
 
-const Basket = () => {
+// TODO: Сделать самому корзину
+
+const Basket = () => { // Компонент корзины
 
 	return (
 		<div>

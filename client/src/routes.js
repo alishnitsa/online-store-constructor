@@ -4,7 +4,7 @@ import { Shop } from "./pages/Shop";
 import { Auth } from "./pages/Auth";
 import { DevicePage } from "./pages/DevicePage";
 
-import {
+import { // Импорт путей
 	ADMIN_ROUTE,
 	BASKET_ROUTE,
 	DEVICE_ROUTE,
@@ -13,7 +13,7 @@ import {
 	SHOP_ROUTE
 } from "./utils/consts";
 
-export const authRoutes = [
+export const authRoutes = [ // Роутинг для авторизованных пользователей
 	{
 		path: ADMIN_ROUTE,
 		Component: Admin
@@ -23,7 +23,7 @@ export const authRoutes = [
 		Component: Basket
 	}
 ],
-	publicRoutes = [
+	publicRoutes = [	// Роутинг для всех пользователей
 		{
 			path: SHOP_ROUTE,
 			Component: Shop

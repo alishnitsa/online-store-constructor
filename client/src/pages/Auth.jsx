@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Auth = () => {
+const Auth = () => { // Компонент страницы регистрации и авторизации
 
 	return (
 		<div>

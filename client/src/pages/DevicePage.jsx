@@ -1,6 +1,6 @@
 import React from 'react'
 
-const DevicePage = () => {
+const DevicePage = () => { // Компонент страницы девайса
 
 	return (
 		<div>

@@ -1,4 +1,7 @@
-export const ADMIN_ROUTE = '/admin',
+// Константы
+export const
+	// Пути
+	ADMIN_ROUTE = '/admin',
 	LOGIN_ROUTE = '/login',
 	REGISTRATION_ROUTE = '/registration',
 	SHOP_ROUTE = '/',

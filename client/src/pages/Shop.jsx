@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Shop = () => {
+const Shop = () => { // Компонент страницы магазина
 
 	return (
 		<div>
