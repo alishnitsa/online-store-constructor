@@ -18,7 +18,9 @@ const AppRouter = () => {
 					<Route key={path} path={path} component={Component} exact /> // Точное совпадение пути (exact)
 				)
 			}
-			<Redirect to={SHOP_ROUTE} /> // * В случае не совпадения переход на страницу магазина 
+
+			{/* В случае не совпадения переход на страницу магазина */}
+			<Redirect to={SHOP_ROUTE} />
 		</Switch>
 	)
 }
