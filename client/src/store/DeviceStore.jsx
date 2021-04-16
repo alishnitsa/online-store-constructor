@@ -25,10 +25,10 @@ class DeviceStore { // Глобальное состояние
 	setTypes(types) { // Для изменения состояния авторизации
 		this._types = types
 	}
-	setBrands(_brands) { // Для изменения пользователя
+	setBrands(brands) { // Для изменения пользователя
 		this._brands = brands
 	}
-	setDevices(_devices) {
+	setDevices(devices) {
 		this._devices = devices
 	}
 
