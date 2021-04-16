@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { createContext } from 'react';
 import ReactDOM from 'react-dom';
 import App from './App.jsx';
+import { UserStore } from './store/UserStore.jsx';
+import { DeviceStore } from './store/DeviceStore';
+
+
+const Context = createContext(null) // Контекст для работы с состояниями
 
 ReactDOM.render(
-	<React.StrictMode>
+	<Context.Provider value={{
+		user: new UserStore(), // Состояние пользователя
+		device: new DeviceStore() // Состояние девайсов
+	}}>
 		<App />
-	</React.StrictMode>,
+	</Context.Provider>,
 	document.getElementById('root')
 );
+
+export { Context }
