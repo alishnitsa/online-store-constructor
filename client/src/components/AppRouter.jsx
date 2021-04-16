@@ -6,7 +6,7 @@ import { SHOP_ROUTE } from '../utils/consts'
 
 const AppRouter = () => {
 	const { user } = useContext(Context) // Хук для работы с контекстом
-	console.log(user);
+	console.log(user); // ! Надо убрать
 	return (
 		<Switch>
 			{	// Для авторизованных пользователей
