@@ -11,6 +11,12 @@ import { observer } from 'mobx-react-lite';
 const NavBar = observer(() => {
 	const { user } = useContext(Context) // Хук для работы с контекстом
 	const history = useHistory() // хук для динамического передвижения по странице
+
+	const logOut = () => { // Выход из аккаунта
+		user.setUser({})
+		user.setIsAuth(false) // Пользователь не авторизован
+	}
+
 	return (
 		<Navbar bg="dark" variant="dark">
 			<Container>
@@ -34,7 +40,7 @@ const NavBar = observer(() => {
 							</Button>
 							<Button
 								variant={"outline-light"}
-								onClick={() => history.push(LOGIN_ROUTE)} // Переход на панель авторизации
+								onClick={() => logOut()} // Выход из аккаунта
 								className={"ml-2"}
 							>
 								Выйти
@@ -45,7 +51,7 @@ const NavBar = observer(() => {
 							className="ml-auto"
 							style={{ color: 'white' }}
 						>
-							<Button variant={"outline-light"} onClick={() => user.setIsAuth(true)}>Авторизация</Button>
+							<Button variant={"outline-light"} onClick={() => history.push(LOGIN_ROUTE)}>Авторизация</Button>
 						</Nav>
 				}
 			</Container>

@@ -8,7 +8,6 @@ import { DEVICE_ROUTE } from '../utils/consts';
 
 const DeviceItem = ({ device }) => { // Элемент списка девайсов props = текущий элемент итерации
 	const history = useHistory() // хук для динамического передвижения по странице
-	console.log(history)
 	return (
 		// Занимает 3 столбца
 		<Col
@@ -19,7 +18,7 @@ const DeviceItem = ({ device }) => { // Элемент списка девайс
 			{/* Карточка товара */}
 			<Card style={{ width: 150, cursor: 'pointer' }} border={"light"}>
 				{/* Картинка девайса */}
-				<Image width={150} height={150} src={device.img} />
+				<Image width={150} height={150} src={`${process.env.REACT_APP_API_URL}${device.img}`} />
 				{/* Блок с названием и рейтингом девайса */}
 				<div className=" mt-1 d-flex justify-content-between align-items-center">
 					{/* Бренд девайса */}

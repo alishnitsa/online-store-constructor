@@ -3,27 +3,12 @@ import { makeAutoObservable } from "mobx"; // Для работы с состо�
 class DeviceStore { // Глобальное состояние
 	constructor() {
 		// Store
-		// ! Временные заглушки
-		this._types = [ // Типы
-			{ id: 1, name: 'Холодильники' },
-			{ id: 2, name: 'Смартфоны' },
-			{ id: 3, name: 'Ноутбуки' },
-			{ id: 4, name: 'Телевизоры' },
-		]
-		this._brands = [ // Бренды
-			{ id: 1, name: 'Samsung' },
-			{ id: 2, name: 'Apple' },
-			{ id: 3, name: 'Lenovo' },
-			{ id: 4, name: 'Asus' },
-		]
-		this._devices = [ // Девайсы
-			{ id: 1, name: "Iphone 12 pro", price: 25000, rating: 5, img: `https://www.iguides.ru/upload/medialibrary/f74/f74a05700b894adeadca26c6abaa20f2.jpg` },
-			{ id: 2, name: "Iphone 12 pro", price: 25000, rating: 5, img: `https://www.iguides.ru/upload/medialibrary/f74/f74a05700b894adeadca26c6abaa20f2.jpg` },
-			{ id: 3, name: "Iphone 12 pro", price: 25000, rating: 5, img: `https://www.iguides.ru/upload/medialibrary/f74/f74a05700b894adeadca26c6abaa20f2.jpg` },
-			{ id: 4, name: "Iphone 12 pro", price: 25000, rating: 5, img: `https://www.iguides.ru/upload/medialibrary/f74/f74a05700b894adeadca26c6abaa20f2.jpg` },
-			{ id: 5, name: "Iphone 12 pro", price: 25000, rating: 5, img: `https://www.iguides.ru/upload/medialibrary/f74/f74a05700b894adeadca26c6abaa20f2.jpg` },
-			{ id: 6, name: "Iphone 12 pro", price: 25000, rating: 5, img: `https://www.iguides.ru/upload/medialibrary/f74/f74a05700b894adeadca26c6abaa20f2.jpg` },
-		]
+		this._types = [] // Типы
+
+		this._brands = [] // Бренды
+
+		this._devices = [] // Девайсы
+
 		this._selectedType = {} // Выделенное поле типа
 		this._selectedBrand = {} // Выделенное поле бренда
 

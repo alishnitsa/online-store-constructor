@@ -1,22 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Card, Col, Container, Image, Row } from 'react-bootstrap'
 import bigStar from "../assets/big star.png";
-
+import { useParams } from "react-router-dom"; // Хук для получения параметра строки запроса, для получения id устройства
+import { fetchOneDevice } from '../http/deviceAPI';
 const DevicePage = () => { // Компонент страницы девайса
-	const device = { id: 1, name: "Iphone 12 pro", price: 25000, rating: 5, img: `https://www.iguides.ru/upload/medialibrary/f74/f74a05700b894adeadca26c6abaa20f2.jpg` } // ! Временно
-	const description = [
-		{ id: 1, title: 'Оперативная память', description: '5 Гб' },
-		{ id: 2, title: 'Камера', description: '12 Мп' },
-		{ id: 3, title: 'Процессор', description: 'Пентиум 3' },
-		{ id: 4, title: 'Количество ядер', description: '2' },
-		{ id: 5, title: 'Аккумулятор', description: '4000' },
-	]
+
+	const [device, setDevice] = useState({ info: [] }) // Локальное состояние
+	const { id } = useParams() // Из строки запроса получаем id
+	useEffect(() => { // При открытии страницы единожды подгружаем девайс
+		fetchOneDevice(id)
+			.then(data => setDevice(data))
+	}, [id])
 	return (
 		<Container className="mt-3" >
 			<Row>
 				{/* Изображение */}
 				<Col md={4}>
-					<Image width={300} height={300} src={device.img} />
+					<Image width={300} height={300} src={`${process.env.REACT_APP_API_URL}/${device.img}`} />
 				</Col>
 				{/* Рейтинг */}
 				<Col md={4}>
@@ -45,7 +45,7 @@ const DevicePage = () => { // Компонент страницы девайса
 			{/* Характеристики */}
 			<Row className="d-flex flex-column m-3" >
 				<h1>Характеристики</h1>
-				{description.map((info, index) =>
+				{device.info.map((info, index) =>
 					// Задний фон чередуется через одну
 					<Row key={info.id} style={{ background: index % 2 === 0 ? 'lightgray' : 'transparent', padding: 10 }}>
 						{info.title}: {info.description}

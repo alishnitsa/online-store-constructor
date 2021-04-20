@@ -1,12 +1,34 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { Button, Card, Container, Form, Row } from 'react-bootstrap'
-import { NavLink, useLocation } from 'react-router-dom'
-import { LOGIN_ROUTE, REGISTRATION_ROUTE } from '../utils/consts'
+import { NavLink, useHistory, useLocation } from 'react-router-dom'
+import { LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from '../utils/consts'
+import { login, registration } from "../http/userAPI";
+import { observer } from 'mobx-react-lite';
+import { Context } from '..';
 
-const Auth = () => { // Компонент страницы регистрации и авторизации
-
+const Auth = observer(() => { // Компонент страницы регистрации и авторизации
+	const { user } = useContext(Context) // Получение состояние пользователей
 	const location = useLocation() // Хук для получения маршрута в строке запроса
+	const history = useHistory()
 	const isLogin = location.pathname === LOGIN_ROUTE
+	const [email, setEmail] = useState('')
+	const [password, setPassword] = useState('')
+
+	const click = async () => {
+		try {
+			let data
+			if (isLogin) {
+				data = await login(email, password)
+			} else {
+				data = await registration(email, password)
+			}
+			user.setUser(user) // Изменение состояния пользователя
+			user.setIsAuth(true) // Изменение состояние авторизации
+			history.push(SHOP_ROUTE)
+		} catch (e) {
+			alert(e.response.data.message)
+		}
+	}
 
 	return (
 		<Container
@@ -19,10 +41,15 @@ const Auth = () => { // Компонент страницы регистраци
 					<Form.Control
 						className="mt-3"
 						placeholder="Введите ваш email..."
+						value={email}
+						onChange={e => setEmail(e.target.value)}
 					/>
 					<Form.Control
 						className="mt-3"
 						placeholder="Введите ваш пароль..."
+						value={password}
+						onChange={e => setPassword(e.target.value)}
+						type="password"
 					/>
 					<Row className="d-flex justify-content-between mt-3 ml-0 mr-0">
 						{
@@ -36,8 +63,9 @@ const Auth = () => { // Компонент страницы регистраци
 								</div>
 						}
 						<Button
-							className=" align-self-end"
+							// className=" align-self-end"
 							variant={"outline-success"}
+							onClick={click}
 						>
 							{isLogin ? 'Войти' : 'Регистрация'}
 						</Button>
@@ -47,6 +75,6 @@ const Auth = () => { // Компонент страницы регистраци
 			</Card>
 		</Container>
 	)
-}
+})
 
 export { Auth }

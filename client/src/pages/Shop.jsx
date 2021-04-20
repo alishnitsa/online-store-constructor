@@ -1,10 +1,23 @@
-import React from 'react'
+import { observer } from 'mobx-react-lite'
+import React, { useContext, useEffect } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
+import { Context } from '..'
 import { BrandBar } from '../components/BrandBar'
 import { DeviceList } from '../components/DeviceList'
 import { TypeBar } from '../components/TypeBar'
+import { fetchTypes, fetchBrands, fetchDevices } from '../http/deviceAPI'
 
-const Shop = () => { // Компонент страницы магазина
+const Shop = observer(() => { // Компонент страницы магазина
+	const { device } = useContext(Context) // Получение store девайсов
+
+	useEffect(() => { // Единожды при открытии Shop подгружаются устройства
+		fetchTypes()
+			.then(data => device.setTypes(data)) // При удачном запросы в setTipes передаем то, что вернулось в запросе
+		fetchBrands()
+			.then(data => device.setBrands(data)) // При удачном запросы в setBrands передаем то, что вернулось в запросе
+		fetchDevices()
+			.then(data => device.setDevices(data.rows)) // При удачном запросы в setDevices передаем то, что вернулось в запросе
+	})
 
 	return (
 		<Container>
@@ -22,6 +35,6 @@ const Shop = () => { // Компонент страницы магазина
 			</Row>
 		</Container>
 	)
-}
+})
 
 export { Shop }
