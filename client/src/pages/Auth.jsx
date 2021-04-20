@@ -20,6 +20,7 @@ const Auth = observer(() => { // Компонент страницы регис�
 			if (isLogin) {
 				data = await login(email, password)
 			} else {
+				// eslint-disable-next-line
 				data = await registration(email, password)
 			}
 			user.setUser(user) // Изменение состояния пользователя

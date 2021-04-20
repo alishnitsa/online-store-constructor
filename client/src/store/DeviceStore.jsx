@@ -12,6 +12,10 @@ class DeviceStore { // Глобальное состояние
 		this._selectedType = {} // Выделенное поле типа
 		this._selectedBrand = {} // Выделенное поле бренда
 
+		this._page = 1 // Текущая страница
+		this._totalCount = 0 // Общее кол-во товаров по данному запросу
+		this._limit = 3 // Кол-во товаров на одной странице
+
 		makeAutoObservable(this) // Следит за изменениями состояний
 	}
 
@@ -26,10 +30,20 @@ class DeviceStore { // Глобальное состояние
 		this._devices = devices
 	}
 	setSelectedType(type) { // Для изменения выделенного типа
+		this.setPage(1) // Перемещение на 1 страницу
 		this._selectedType = type
 	}
 	setSelectedBrand(brand) { // Для изменения выделенного бренда
+		this.setPage(1) // Перемещение на 1 страницу
 		this._selectedBrand = brand
+	}
+
+	setPage(page) { // Для изменения текущей страницы
+		this._page = page
+	}
+
+	setTotalCount(count) { // Для изменения общего кол-ва товаров
+		this._totalCount = count
 	}
 
 	// Геттеры
@@ -49,6 +63,19 @@ class DeviceStore { // Глобальное состояние
 	get selectedBrand() {
 		return this._selectedBrand
 	}
+
+	get page() {
+		return this._page
+	}
+
+	get totalCount() {
+		return this._totalCount
+	}
+
+	get limit() {
+		return this._limit
+	}
+
 }
 
 export { DeviceStore }

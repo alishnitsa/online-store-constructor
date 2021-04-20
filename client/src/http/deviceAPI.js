@@ -16,7 +16,7 @@ const createBrand = async (brand) => { // Добавление бренда
 }
 
 const fetchBrands = async () => { // Получение брендов
-	const { data } = await $host.get('api/brand') // Ответ сервера при получении
+	const { data } = await $host.get('api/brand')
 	return data // Результат получения
 }
 
@@ -25,8 +25,12 @@ const createDevice = async (device) => { // Добавление девайса
 	return data // Результат добавления
 }
 
-const fetchDevices = async () => { // Получение девайсов
-	const { data } = await $host.get('api/device') // Ответ сервера при получении
+const fetchDevices = async (typeId, brandId, page, limit = 5) => { // Получение девайсов
+	const { data } = await $host.get('api/device', { // Ответ сервера при получении
+		params: {
+			typeId, brandId, page, limit
+		}
+	}) // Ответ сервера при получении
 	return data // Результат получения
 }
 
