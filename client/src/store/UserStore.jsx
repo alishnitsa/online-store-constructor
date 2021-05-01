@@ -5,6 +5,7 @@ class UserStore { // Глобальное состояние
 		// States
 		this._isAuth = false // Авторизован ли пользователь
 		this._user = {}
+		this._isAdmin = false
 		makeAutoObservable(this) // Следит за изменениями состояний
 	}
 
@@ -15,6 +16,9 @@ class UserStore { // Глобальное состояние
 	setUser(user) { // Для изменения пользователя
 		this._user = user
 	}
+	setIsAdmin(bool) {
+		this._isAdmin = bool
+	}
 
 	// Геттеры
 	// Вызываются если переменная внутри была изменена
@@ -23,6 +27,9 @@ class UserStore { // Глобальное состояние
 	}
 	get isUser() {
 		return this._user
+	}
+	get isAdmin() {
+		return this._isAdmin
 	}
 }
 

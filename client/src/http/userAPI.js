@@ -17,8 +17,12 @@ const login = async (email, password) => {
 
 const check = async () => { // Проверка токена. Если не валидный, пользователь разлогинивается
 	const { data } = await $authHost.get('api/user/auth') // Ответ сервера проверке токена
+	const decode = jwt_decode(data.token)
 	localStorage.setItem('token', data.token) // Помещаем токен в локальное хранилище
-	return jwt_decode(data.token) // Результат декодирования
+	localStorage.setItem('role', decode.role) // Помещаем роль в локальное хранилище
+	console.log(localStorage); // ! Потом убрать
+
+	return decode // Результат декодирования
 }
 
 export {
