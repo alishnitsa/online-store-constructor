@@ -7,7 +7,6 @@ import { NavLink, useHistory } from 'react-router-dom';
 import { ADMIN_ROUTE, LOGIN_ROUTE, SHOP_ROUTE } from '../utils/consts';
 import { observer } from 'mobx-react-lite';
 
-
 const NavBar = observer(() => {
 	const { user } = useContext(Context) // Хук для работы с контекстом
 	const history = useHistory() // хук для динамического передвижения по странице
