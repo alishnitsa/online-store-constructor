@@ -5,6 +5,8 @@ const { DataTypes } = require('sequelize') // Импорт класса, с по
 
 const User = sequelize.define('user', { // Пользователь
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true }, // Id
+	name: { type: DataTypes.STRING, allowNull: false }, // Имя
+	date_of_birth: { type: DataTypes.DATEONLY, allowNull: false }, // Дата рождения
 	email: { type: DataTypes.STRING, unique: true }, // Почта
 	password: { type: DataTypes.STRING }, // Пароль
 	role: { type: DataTypes.STRING, defaultValue: "USER" } // Роль (ADMIN или USER)
@@ -14,15 +16,15 @@ const Basket = sequelize.define('basket', { // Корзина
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true }, // Id
 })
 
-const BasketDevice = sequelize.define('basket_device', { // Корзина устройств
+const BasketProduct = sequelize.define('basket_product', { // Корзина товаров
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true }, // Id
 })
 
-const Device = sequelize.define('device', { // Устройство
+const Product = sequelize.define('product', { // Товар
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true }, // Id
 	name: { type: DataTypes.STRING, unique: true, allowNull: false }, // Название
+	quantity: { type: DataTypes.INTEGER, defaultValue: 0 },
 	price: { type: DataTypes.INTEGER, allowNull: false }, // Цена
-	rating: { type: DataTypes.INTEGER, defaultValue: 0 }, // Рейтинг
 	img: { type: DataTypes.STRING, allowNull: false }, // Картинка
 })
 
@@ -36,12 +38,12 @@ const Brand = sequelize.define('brand', { // Бренд
 	name: { type: DataTypes.STRING, unique: true, allowNull: false }, // Название
 })
 
-const Rating = sequelize.define('rating', { // Рейтинг
-	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true }, // Id
-	rate: { type: DataTypes.INTEGER, allowNull: false }, // Оценка 
-})
+// const Rating = sequelize.define('rating', { // Рейтинг
+// 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true }, // Id
+// 	rate: { type: DataTypes.INTEGER, allowNull: false }, // Оценка 
+// })
 
-const DeviceInfo = sequelize.define('info', { // Информация о девайсе
+const ProductInfo = sequelize.define('info', { // Информация о товаре
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true }, // Id
 	title: { type: DataTypes.STRING, allowNull: false }, // Название характеристики
 	description: { type: DataTypes.STRING, allowNull: false }, // Описание характеристики
@@ -56,26 +58,26 @@ const TypeBrand = sequelize.define('type_brand', { // Временной таб�
 User.hasOne(Basket) // 1 - 1
 Basket.belongsTo(User) // Корзина пренадлежит пользователю
 
-User.hasMany(Rating) // 1 - M
-Rating.belongsTo(User) // Рейтинг пренадлежит пользователю
+// User.hasMany(Rating) // 1 - M
+// Rating.belongsTo(User) // Рейтинг пренадлежит пользователю
 
-Basket.hasMany(BasketDevice) // 1 - M
-BasketDevice.belongsTo(Basket) // Корзина девайсов пренадлежит корзине
+Basket.hasMany(BasketProduct) // 1 - M
+BasketProduct.belongsTo(Basket) // Корзина товаров пренадлежит корзине
 
-Type.hasMany(Device) // 1 - M
-Device.belongsTo(Type) // Девайс пренадлежит типу
+Type.hasMany(Product) // 1 - M
+Product.belongsTo(Type) // Товар пренадлежит типу
 
-Brand.hasMany(Device) // 1 - M
-Device.belongsTo(Brand) // девайс пренадлежит бренду
+Brand.hasMany(Product) // 1 - M
+Product.belongsTo(Brand) // Товар пренадлежит бренду
 
-Device.hasMany(Rating) // 1 - M
-Rating.belongsTo(Device) // Рейтинг пренадлежит девайсу
+// Product.hasMany(Rating) // 1 - M
+// Rating.belongsTo(Product) // Рейтинг пренадлежит товару
 
-Device.hasMany(BasketDevice) // 1 - M
-BasketDevice.belongsTo(Device) // Корзина девайсов пренадлежит девайсу
+Product.hasMany(BasketProduct) // 1 - M
+BasketProduct.belongsTo(Product) // Корзина товаров пренадлежит девайсу
 
-Device.hasMany(DeviceInfo, { as: 'info' }) // 1 - M
-DeviceInfo.belongsTo(Device) // Информация девайса пренадлежит девайсу
+Product.hasMany(ProductInfo, { as: 'info' }) // 1 - M
+ProductInfo.belongsTo(Product) // Информация товара пренадлежит товару
 
 Type.belongsToMany(Brand, { through: TypeBrand }) // M - M
 Brand.belongsToMany(Type, { through: TypeBrand }) // Бренд пренадлежит типу
@@ -83,11 +85,10 @@ Brand.belongsToMany(Type, { through: TypeBrand }) // Бренд пренадле
 module.exports = { // Экспорт объектов
 	User,
 	Basket,
-	BasketDevice,
-	Device,
+	BasketProduct,
+	Product,
 	Type,
 	Brand,
-	Rating,
 	TypeBrand,
-	DeviceInfo
+	ProductInfo
 }

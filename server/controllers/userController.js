@@ -13,16 +13,22 @@ const generateJwt = (id, email, role) => { // Генерация токена
 
 class UserController { // Контроллер для пользователя
 	async registration(req, res, next) { // Регистрация
-		const { email, password, role } = req.body // Получение из тела запроса email, пароль и роль
+		const { name, date_of_birth, email, password, role } = req.body // Получение из тела запроса email, пароль и роль
 		if (!email && !password) { // Если поля логина и пароля пустые, то возвращаем ошибку
 			return next(ApiError.badRequest('Некорректный email или пароль'))
+		}
+		if (!name) { // Если поля логина и пароля пустые, то возвращаем ошибку
+			return next(ApiError.badRequest('Некорректное имя'))
+		}
+		if (!date_of_birth) { // Если поля логина и пароля пустые, то возвращаем ошибку
+			return next(ApiError.badRequest('Некорректная дата рождения'))
 		}
 		const candidate = await User.findOne({ where: { email } }) // Проверка существования пользователя в системе
 		if (candidate) {
 			return next(ApiError.badRequest('Пользователь с таким email уже существует'))
 		}
 		const hashPassword = await bcrypt.hash(password, 5) // Хеширование пароля, если пользователя не существует (пароль, кол-во хеширований)
-		const user = await User.create({ email, role, password: hashPassword }) // Создание пользователя
+		const user = await User.create({ name, date_of_birth, email, role, password: hashPassword }) // Создание пользователя
 		const basket = await Basket.create({ userId: user.id }) // Создание корзины для пользователя
 		const token = generateJwt(user.id, user.email, user.role) // Создание токена
 		return res.json({ token })

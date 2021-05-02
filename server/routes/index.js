@@ -5,7 +5,7 @@ const router = new Router() // Создание объекта роутер
 // TODO: Надо сделать роутеры и контроллеры для корзины и рейтинга
 
 // Импорт роутеров
-const deviceRouter = require('./deviceRouter'),
+const productRouter = require('./productRouter'),
 	userRouter = require('./userRouter'),
 	brandRouter = require('./brandRouter'),
 	typeRouter = require('./typeRouter')
@@ -14,7 +14,7 @@ const deviceRouter = require('./deviceRouter'),
 router.use('/user', userRouter)
 router.use('/type', typeRouter)
 router.use('/brand', brandRouter)
-router.use('/device', deviceRouter)
+router.use('/product', productRouter)
 
 
 module.exports = router
