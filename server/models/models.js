@@ -49,6 +49,11 @@ const ProductInfo = sequelize.define('info', { // Информация о тов
 	description: { type: DataTypes.STRING, allowNull: false }, // Описание характеристики
 })
 
+const ProductKey = sequelize.define('key', { // Лицензионный ключ товара
+	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+	key: { type: DataTypes.STRING, allowNull: false }
+})
+
 const TypeBrand = sequelize.define('type_brand', { // Временной таблица для связи М - М между моделями Тип и Бренд
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true }, // Id
 })
@@ -79,6 +84,9 @@ BasketProduct.belongsTo(Product) // Корзина товаров пренадл
 Product.hasMany(ProductInfo, { as: 'info' }) // 1 - M
 ProductInfo.belongsTo(Product) // Информация товара пренадлежит товару
 
+Product.hasMany(ProductKey) // 1 - M
+ProductKey.belongsTo(Product) // Ключ товара принадлежит товару
+
 Type.belongsToMany(Brand, { through: TypeBrand }) // M - M
 Brand.belongsToMany(Type, { through: TypeBrand }) // Бренд пренадлежит типу
 
@@ -90,5 +98,6 @@ module.exports = { // Экспорт объектов
 	Type,
 	Brand,
 	TypeBrand,
-	ProductInfo
+	ProductInfo,
+	ProductKey
 }
