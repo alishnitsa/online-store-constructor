@@ -8,6 +8,7 @@ import { PRODUCT_ROUTE } from '../utils/consts';
 
 const ProductItem = ({ product }) => { // Элемент списка девайсов props = текущий элемент итерации
 	const history = useHistory() // хук для динамического передвижения по странице
+	// console.log(product);
 	return (
 		// Занимает 3 столбца
 		<Col
@@ -31,7 +32,7 @@ const ProductItem = ({ product }) => { // Элемент списка девай
 				</div>
 				{/* Название девайса */}
 				{product.name}
-				{/* {console.log(product.brands.map(brand => brand.id))} */}
+
 			</Card>
 		</Col>
 	)

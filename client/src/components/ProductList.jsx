@@ -6,6 +6,7 @@ import { ProductItem } from './ProductItem'
 
 const ProductList = observer(() => {
 	const { product } = useContext(Context) // Получение из контекта девайс store
+	// console.log(product);
 	return (
 		// Вывод девайсов
 		<Row className="d-flex">

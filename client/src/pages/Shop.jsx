@@ -16,15 +16,15 @@ const Shop = observer(() => { // Компонент страницы магаз�
 			.then(data => product.setTypes(data)) // При удачном запросы в setTipes передаем то, что вернулось в запросе
 		fetchBrands()
 			.then(data => product.setBrands(data)) // При удачном запросы в setBrands передаем то, что вернулось в запросе
-		fetchProducts(null, null, 1, 3)
-			.then(data => {
-				product.setProducts(data.rows) // При удачном запросы в setProducts передаем то, что вернулось в запросе
-				product.setTotalCount(data.count) // Кол-во товаров по запросу
-			})
+		// fetchProducts(null, null, 1, 5)
+		// 	.then(data => {
+		// 		product.setProducts(data.rows) // При удачном запросы в setProducts передаем то, что вернулось в запросе
+		// 		product.setTotalCount(data.count) // Кол-во товаров по запросу
+		// 	})
 	})
 
 	useEffect(() => {
-		fetchProducts(product.selectedType.id, product.selectedBrand.id, product.page, 2)
+		fetchProducts(product.selectedType.id, product.selectedBrand.id, product.page, 12)
 			.then(data => {
 				product.setProducts(data.rows) // При удачном запросы в setProducts передаем то, что вернулось в запросе
 				product.setTotalCount(data.count) // Кол-во товаров по запросу

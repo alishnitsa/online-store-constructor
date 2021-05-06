@@ -7,7 +7,7 @@ const Pages = observer(() => {
 	const { product } = useContext(Context) // Получение store девайсов
 	const pageCount = Math.ceil(product.totalCount / product.limit) // Страницы
 	const pages = []
-
+	console.log(product.limit);
 	for (let i = 0; i < pageCount; i++) { // Заполняем массив страниц количеством страниц
 		pages.push(i + 1)
 	}
