@@ -2,11 +2,11 @@ import React, { useContext, useState, useEffect } from 'react'
 import Modal from "react-bootstrap/Modal";
 import { Form, Button, Dropdown, FormControl, Col, Row } from "react-bootstrap";
 import { Context } from '../..';
-import { fetchTypes, fetchBrands, createDevice } from '../../http/deviceAPI'
+import { fetchTypes, fetchBrands, createProduct } from '../../http/productAPI'
 import { observer } from 'mobx-react-lite';
 
-const CreateDevice = observer(({ show, onHide }) => {
-	const { device } = useContext(Context) // Получение девайсов из состояния
+const CreateProduct = observer(({ show, onHide }) => {
+	const { product } = useContext(Context) // Получение девайсов из состояния
 	const [name, setName] = useState('')
 	const [price, setPrice] = useState(0)
 	const [file, setFile] = useState(null)
@@ -14,10 +14,10 @@ const CreateDevice = observer(({ show, onHide }) => {
 
 	useEffect(() => { // Единожды при открытии модального окна подгружаются устройства
 		fetchTypes()
-			.then(data => device.setTypes(data)) // При удачном запросы в setTipes передаем то, что вернулось в запросе
+			.then(data => product.setTypes(data)) // При удачном запросы в setTipes передаем то, что вернулось в запросе
 		fetchBrands()
-			.then(data => device.setBrands(data)) // При удачном запросы в setBrands передаем то, что вернулось в запросе
-	}, [device])
+			.then(data => product.setBrands(data)) // При удачном запросы в setBrands передаем то, что вернулось в запросе
+	}, [product])
 
 	const addInfo = () => { // Функция добавления характеристик
 		setInfo([ // Функция изменения состояния
@@ -41,15 +41,15 @@ const CreateDevice = observer(({ show, onHide }) => {
 		setFile(e.target.files[0])
 	}
 
-	const addDevice = () => { // Создание девайса
+	const addProduct = () => { // Создание девайса
 		const formData = new FormData()
 		formData.append('name', name)
 		formData.append('price', `${price}`)
 		formData.append('img', file)
-		formData.append('brandId', device.selectedBrand.id)
-		formData.append('typeId', device.selectedType.id)
+		formData.append('brandId', product.selectedBrand.id)
+		formData.append('typeId', product.selectedType.id)
 		formData.append('info', JSON.stringify(info))
-		createDevice(formData).then(data => onHide())
+		createProduct(formData).then(data => onHide())
 	}
 
 	return (
@@ -68,11 +68,11 @@ const CreateDevice = observer(({ show, onHide }) => {
 				<Form>
 					{/* Выпадающее меню */}
 					<Dropdown className="mt-2 mb-2">
-						<Dropdown.Toggle>{device.selectedType.name || 'Выберите тип'}</Dropdown.Toggle>
+						<Dropdown.Toggle>{product.selectedType.name || 'Выберите тип'}</Dropdown.Toggle>
 						<Dropdown.Menu>
-							{device.types.map(type =>
+							{product.types.map(type =>
 								<Dropdown.Item
-									onClick={() => device.setSelectedType(type)}
+									onClick={() => product.setSelectedType(type)}
 									key={type.id}
 								>
 									{type.name}
@@ -81,11 +81,11 @@ const CreateDevice = observer(({ show, onHide }) => {
 						</Dropdown.Menu>
 					</Dropdown>
 					<Dropdown className="mt-2 mb-2">
-						<Dropdown.Toggle>{device.selectedBrand.name || 'Выберите бренд'}</Dropdown.Toggle>
+						<Dropdown.Toggle>{product.selectedBrand.name || 'Выберите бренд'}</Dropdown.Toggle>
 						<Dropdown.Menu>
-							{device.brands.map(brand =>
+							{product.brands.map(brand =>
 								<Dropdown.Item
-									onClick={() => device.setSelectedBrand(brand)}
+									onClick={() => product.setSelectedBrand(brand)}
 									key={brand.id}
 								>
 									{brand.name}
@@ -151,10 +151,10 @@ const CreateDevice = observer(({ show, onHide }) => {
 			</Modal.Body>
 			<Modal.Footer>
 				<Button variant="outline-danger" onClick={onHide}>Закрыть</Button>
-				<Button variant="outline-success" onClick={addDevice}>Добавить</Button>
+				<Button variant="outline-success" onClick={addProduct}>Добавить</Button>
 			</Modal.Footer>
 		</Modal>
 	)
 })
 
-export { CreateDevice }
+export { CreateProduct }

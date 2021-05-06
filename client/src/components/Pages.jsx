@@ -4,8 +4,8 @@ import { Pagination } from 'react-bootstrap'
 import { Context } from '..'
 
 const Pages = observer(() => {
-	const { device } = useContext(Context) // Получение store девайсов
-	const pageCount = Math.ceil(device.totalCount / device.limit) // Страницы
+	const { product } = useContext(Context) // Получение store девайсов
+	const pageCount = Math.ceil(product.totalCount / product.limit) // Страницы
 	const pages = []
 
 	for (let i = 0; i < pageCount; i++) { // Заполняем массив страниц количеством страниц
@@ -19,8 +19,8 @@ const Pages = observer(() => {
 					pages.map(page =>
 						<Pagination.Item
 							key={page}
-							active={device.page === page}
-							onClick={() => device.setPage(page)}
+							active={product.page === page}
+							onClick={() => product.setPage(page)}
 						>
 							{page}
 						</Pagination.Item>

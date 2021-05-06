@@ -1,13 +1,13 @@
 import { makeAutoObservable } from "mobx"; // Для работы с состояниями
 
-class DeviceStore { // Глобальное состояние
+class ProductStore { // Глобальное состояние
 	constructor() {
 		// Store
 		this._types = [] // Типы
 
 		this._brands = [] // Бренды
 
-		this._devices = [] // Девайсы
+		this._products = [] // Девайсы
 
 		this._selectedType = {} // Выделенное поле типа
 		this._selectedBrand = {} // Выделенное поле бренда
@@ -26,8 +26,8 @@ class DeviceStore { // Глобальное состояние
 	setBrands(brands) { // Для изменения бренда
 		this._brands = brands
 	}
-	setDevices(devices) { // Для изменения девайса
-		this._devices = devices
+	setProducts(products) { // Для изменения девайса
+		this._products = products
 	}
 	setSelectedType(type) { // Для изменения выделенного типа
 		this.setPage(1) // Перемещение на 1 страницу
@@ -54,8 +54,8 @@ class DeviceStore { // Глобальное состояние
 	get types() {
 		return this._types
 	}
-	get devices() {
-		return this._devices
+	get products() {
+		return this._products
 	}
 	get selectedType() {
 		return this._selectedType
@@ -78,4 +78,4 @@ class DeviceStore { // Глобальное состояние
 
 }
 
-export { DeviceStore }
+export { ProductStore }

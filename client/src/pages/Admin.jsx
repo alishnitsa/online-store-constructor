@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Container } from 'react-bootstrap'
 import { CreateBrand } from '../components/modals/CreateBrand'
-import { CreateDevice } from '../components/modals/CreateDevice'
+import { CreateProduct } from '../components/modals/CreateProduct'
 import { CreateType } from '../components/modals/CreateType'
 
 const Admin = () => { // Компонент страницы администратора 
@@ -14,8 +14,8 @@ const Admin = () => { // Компонент страницы администр�
 		setTypeVisible // Изменение состояния видимости
 	] = useState(false) // Состояние модалки типа
 	const [
-		deviceVisible, // Видима ли модалка
-		setDeviceVisible // Изменение состояния видимости
+		productVisible, // Видима ли модалка
+		setProductVisible // Изменение состояния видимости
 	] = useState(false) // Состояние модалки девайса
 
 	return (
@@ -37,12 +37,12 @@ const Admin = () => { // Компонент страницы администр�
 			<Button
 				variant={"outline-dark"}
 				className="mt-4 p-2"
-				onClick={() => setDeviceVisible(true)} // Открытие модального окна
+				onClick={() => setProductVisible(true)} // Открытие модального окна
 			>
 				Добавить устройство
 			</Button>
 			<CreateBrand show={brandVisible} onHide={() => setBrandVisible(false)} />
-			<CreateDevice show={deviceVisible} onHide={() => setDeviceVisible(false)} />
+			<CreateProduct show={productVisible} onHide={() => setProductVisible(false)} />
 			<CreateType show={typeVisible} onHide={() => setTypeVisible(false)} />
 		</Container>
 	)

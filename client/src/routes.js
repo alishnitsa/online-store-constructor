@@ -2,12 +2,12 @@ import { Admin } from "./pages/Admin";
 import { Basket } from "./pages/Basket";
 import { Shop } from "./pages/Shop";
 import { Auth } from "./pages/Auth";
-import { DevicePage } from "./pages/DevicePage";
+import { ProductPage } from "./pages/ProductPage";
 
 import { // Импорт путей
 	ADMIN_ROUTE,
 	BASKET_ROUTE,
-	DEVICE_ROUTE,
+	PRODUCT_ROUTE,
 	LOGIN_ROUTE,
 	REGISTRATION_ROUTE,
 	SHOP_ROUTE
@@ -37,7 +37,7 @@ export const authRoutes = [ // Роутинг для авторизованны�
 			Component: Auth
 		},
 		{
-			path: `${DEVICE_ROUTE}/:id`,
-			Component: DevicePage
+			path: `${PRODUCT_ROUTE}/:id`,
+			Component: ProductPage
 		}
 	]

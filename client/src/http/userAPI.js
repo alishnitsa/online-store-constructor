@@ -20,8 +20,6 @@ const check = async () => { // Проверка токена. Если не ва
 	const decode = jwt_decode(data.token)
 	localStorage.setItem('token', data.token) // Помещаем токен в локальное хранилище
 	localStorage.setItem('role', decode.role) // Помещаем роль в локальное хранилище
-	console.log(localStorage); // ! Потом убрать
-
 	return decode // Результат декодирования
 }
 

@@ -20,13 +20,13 @@ const fetchBrands = async () => { // Получение брендов
 	return data // Результат получения
 }
 
-const createDevice = async (device) => { // Добавление девайса
-	const { data } = await $authHost.post('api/device', device) // Ответ сервера при добавлении типа
+const createProduct = async (product) => { // Добавление девайса
+	const { data } = await $authHost.post('api/product', product) // Ответ сервера при добавлении типа
 	return data // Результат добавления
 }
 
-const fetchDevices = async (typeId, brandId, page, limit = 5) => { // Получение девайсов
-	const { data } = await $host.get('api/device', { // Ответ сервера при получении
+const fetchProducts = async (typeId, brandId, page, limit = 5) => { // Получение девайсов
+	const { data } = await $host.get('api/product', { // Ответ сервера при получении
 		params: {
 			typeId, brandId, page, limit
 		}
@@ -34,8 +34,8 @@ const fetchDevices = async (typeId, brandId, page, limit = 5) => { // Получ
 	return data // Результат получения
 }
 
-const fetchOneDevice = async (id) => { // Получение одного девайса
-	const { data } = await $host.get('api/device/' + id) // Ответ сервера при получении
+const fetchOneProduct = async (id) => { // Получение одного девайса
+	const { data } = await $host.get('api/product/' + id) // Ответ сервера при получении
 	return data // Результат получения
 }
 
@@ -44,7 +44,7 @@ export {
 	fetchTypes,
 	createBrand,
 	fetchBrands,
-	createDevice,
-	fetchDevices,
-	fetchOneDevice
+	createProduct,
+	fetchProducts,
+	fetchOneProduct
 }

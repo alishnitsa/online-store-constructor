@@ -6,4 +6,4 @@ export const
 	REGISTRATION_ROUTE = '/registration',
 	SHOP_ROUTE = '/',
 	BASKET_ROUTE = '/basket',
-	DEVICE_ROUTE = '/device'
+	PRODUCT_ROUTE = '/product'

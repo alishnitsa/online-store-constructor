@@ -3,34 +3,34 @@ import React, { useContext, useEffect } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import { Context } from '..'
 import { BrandBar } from '../components/BrandBar'
-import { DeviceList } from '../components/DeviceList'
+import { ProductList } from '../components/ProductList'
 import { Pages } from '../components/Pages'
 import { TypeBar } from '../components/TypeBar'
-import { fetchTypes, fetchBrands, fetchDevices } from '../http/deviceAPI'
+import { fetchTypes, fetchBrands, fetchProducts } from '../http/productAPI'
 
 const Shop = observer(() => { // Компонент страницы магазина
-	const { device } = useContext(Context) // Получение store девайсов
+	const { product } = useContext(Context) // Получение store девайсов
 
 	useEffect(() => { // Единожды при открытии Shop подгружаются устройства
 		fetchTypes()
-			.then(data => device.setTypes(data)) // При удачном запросы в setTipes передаем то, что вернулось в запросе
+			.then(data => product.setTypes(data)) // При удачном запросы в setTipes передаем то, что вернулось в запросе
 		fetchBrands()
-			.then(data => device.setBrands(data)) // При удачном запросы в setBrands передаем то, что вернулось в запросе
-		fetchDevices(null, null, 1, 3)
+			.then(data => product.setBrands(data)) // При удачном запросы в setBrands передаем то, что вернулось в запросе
+		fetchProducts(null, null, 1, 3)
 			.then(data => {
-				device.setDevices(data.rows) // При удачном запросы в setDevices передаем то, что вернулось в запросе
-				device.setTotalCount(data.count) // Кол-во товаров по запросу
+				product.setProducts(data.rows) // При удачном запросы в setProducts передаем то, что вернулось в запросе
+				product.setTotalCount(data.count) // Кол-во товаров по запросу
 			})
 	})
 
 	useEffect(() => {
-		fetchDevices(device.selectedType.id, device.selectedBrand.id, device.page, 2)
+		fetchProducts(product.selectedType.id, product.selectedBrand.id, product.page, 2)
 			.then(data => {
-				device.setDevices(data.rows) // При удачном запросы в setDevices передаем то, что вернулось в запросе
-				device.setTotalCount(data.count) // Кол-во товаров по запросу
+				product.setProducts(data.rows) // При удачном запросы в setProducts передаем то, что вернулось в запросе
+				product.setTotalCount(data.count) // Кол-во товаров по запросу
 			})
 		// eslint-disable-next-line
-	}, [device.page, device.selectedType, device.selectedBrand])
+	}, [product.page, product.selectedType, product.selectedBrand])
 
 	return (
 		<Container>
@@ -43,7 +43,7 @@ const Shop = observer(() => { // Компонент страницы магаз�
 				{/* Для остального контента по 3 на каждый товар */}
 				<Col md={9}>
 					<BrandBar />
-					<DeviceList />
+					<ProductList />
 					<Pages />
 				</Col>
 			</Row>
