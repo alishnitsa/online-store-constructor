@@ -11,6 +11,8 @@ const CreateProduct = observer(({ show, onHide }) => {
 	const [price, setPrice] = useState(0)
 	const [file, setFile] = useState(null)
 	const [info, setInfo] = useState([]) // Массив характеристик
+	const [licenseKey, setKey] = useState([]) // Массив ключей
+
 
 	useEffect(() => { // Единожды при открытии модального окна подгружаются устройства
 		fetchTypes()
@@ -37,6 +39,23 @@ const CreateProduct = observer(({ show, onHide }) => {
 		setInfo(info.map(i => i.number === number ? { ...i, [key]: value } : i))
 	}
 
+	const addKey = () => { // Функция добавления характеристик
+		setKey([ // Функция изменения состояния
+			...licenseKey, // Разворачиваем старый массив с информацией
+			{
+				keyBody: '', // Ключ
+				number: Date.now() // Текущее время, чтобы использовать как id
+			}
+		])
+	}
+	const removeKey = (number) => { // Функция удаления характеристик
+		setKey(licenseKey.filter(i => i.number !== number)) // Сравнение совпадения номера элемента с номером параметра
+	}
+
+	const changeKey = (key, value, number) => {  // Изменение характеристик
+		setKey(licenseKey.map(i => i.number === number ? { ...i, [key]: value } : i))
+	}
+
 	const selectFile = e => { // Выбор файла
 		setFile(e.target.files[0])
 	}
@@ -49,6 +68,7 @@ const CreateProduct = observer(({ show, onHide }) => {
 		formData.append('brandId', product.selectedBrand.id)
 		formData.append('typeId', product.selectedType.id)
 		formData.append('info', JSON.stringify(info))
+		formData.append('key', JSON.stringify(licenseKey))
 		createProduct(formData).then(data => onHide())
 	}
 
@@ -140,6 +160,34 @@ const CreateProduct = observer(({ show, onHide }) => {
 									<Button
 										variant={"outline-danger"}
 										onClick={() => removeInfo(i.number)}
+									>
+										Удалить
+									</Button>
+								</Col>
+							</Row>
+						)
+					}
+					<Button
+						variant={"outline-dark"}
+						onClick={addKey}
+					>
+						Добавить новый ключ
+					</Button>
+					{
+						licenseKey.map(i =>
+							<Row className="mt-4" key={i.number} >
+								<Col md={4}>
+									<Form.Control
+										value={i.keyValue}
+										onChange={e => changeKey('licenseKey', e.target.value, i.number)}
+										placeholder={"Введите ключ"}
+									/>
+								</Col>
+
+								<Col md={4}>
+									<Button
+										variant={"outline-danger"}
+										onClick={() => removeKey(i.number)}
 									>
 										Удалить
 									</Button>

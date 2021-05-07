@@ -21,7 +21,7 @@ const fetchBrands = async () => { // Получение брендов
 }
 
 const createProduct = async (product) => { // Добавление девайса
-	const { data } = await $authHost.post('api/product', product) // Ответ сервера при добавлении типа
+	const { data } = await $authHost.post('api/product', product) // Ответ сервера при добавлении продукта
 	return data // Результат добавления
 }
 

@@ -84,7 +84,7 @@ BasketProduct.belongsTo(Product) // Корзина товаров пренадл
 Product.hasMany(ProductInfo, { as: 'info' }) // 1 - M
 ProductInfo.belongsTo(Product) // Информация товара пренадлежит товару
 
-Product.hasMany(ProductKey) // 1 - M
+Product.hasMany(ProductKey, { as: 'key' }) // 1 - M
 ProductKey.belongsTo(Product) // Ключ товара принадлежит товару
 
 Type.belongsToMany(Brand, { through: TypeBrand }) // M - M

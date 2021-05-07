@@ -1,25 +1,33 @@
 const uuid = require('uuid') // Генерация рандомных id
 const path = require('path') // Для работы с путями
-const { Product, ProductInfo } = require('../models/models')
+const { Product, ProductInfo, ProductKey } = require('../models/models')
 const ApiError = require('../error/ApiError')
 
 
 class ProductController { // Контроллер для для товара
 	async create(req, res, next) { // Создание
 		try {
-			let { name, price, brandId, typeId, info } = req.body //Получение данных из тела запроса
+			let { name, price, brandId, typeId, info, key } = req.body //Получение данных из тела запроса
 			const { img } = req.files // Получение изображения
 			let fileName = uuid.v4() + ".jpg" // Генерация имени файла
 			img.mv(path.resolve(__dirname, '..', 'static', fileName)) // Перемещение в нужную директорию
 
 			const product = await Product.create({ name, price, brandId, typeId, img: fileName }) // Создание товара
-
 			if (info) {
 				info = JSON.parse(info) // Парсим в json формат для фронта
 				info.forEach(i =>  // Для бэка обратно перегоняем в объект
 					ProductInfo.create({
 						title: i.title, // Название
 						description: i.description, // Описание
+						productId: product.id // Id товара
+					})
+				);
+			}
+			if (key) {
+				key = JSON.parse(key) // Парсим в json формат для фронта
+				key.forEach(i =>  // Для бэка обратно перегоняем в объект
+					ProductKey.create({
+						key: i.licenseKey, // Описание
 						productId: product.id // Id товара
 					})
 				);
@@ -55,7 +63,6 @@ class ProductController { // Контроллер для для товара
 
 	async getOne(req, res) { // Получение одного товара
 		const { id } = req.params // Получение id товара из параметров
-		console.log(id)
 		const product = await Product.findOne( // Получение одного товара
 			{
 				where: { id }, // Id нужного товара
