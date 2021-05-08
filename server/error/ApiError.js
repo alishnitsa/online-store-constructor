@@ -5,6 +5,10 @@ class ApiError extends Error {
 		this.message = message
 	}
 
+	static unprocessableEntity(message) { // В теле запроса допущена логическая ошибка
+		return new ApiError(422, message)
+	}
+
 	static badRequest(message) { // Неверный запрос
 		return new ApiError(404, message)
 	}
