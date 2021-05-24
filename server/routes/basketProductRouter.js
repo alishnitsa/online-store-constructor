@@ -7,7 +7,7 @@ const checkRole = require('../middleware/checkRoleMiddleware')
 // Методы по работе с корзинами
 
 router.post('/', basketProductController.create) // Создание бренда
-router.get('/', basketProductController.getAll) // Получение бренда
-router.get('/:id', basketProductController.getGroup) // Получение бренда
+// router.get('/', basketProductController.getAll) // Получение бренда
+router.get('/', basketProductController.getGroup) // Получение продуктов в корзине
 
 module.exports = router

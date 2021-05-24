@@ -24,10 +24,10 @@ class BasketProductController {
 	}
 
 	async getGroup(req, res) {
-		const { id } = req.params // Получение id корзины
+		const { basketId } = req.body // Получение id корзины из параметров поисковой строки
 		const groupBasketProducts = await BasketProduct.findAll( // Получение товар, соответсвующих id корзины
 			{
-				where: { basketId: id }, // Id нужной корзины
+				where: { basketId: basketId }, // Id нужной корзины
 			},
 		)
 		return res.json(groupBasketProducts)

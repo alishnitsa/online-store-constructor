@@ -18,6 +18,6 @@ router.use('/type', typeRouter)
 router.use('/brand', brandRouter)
 router.use('/product', productRouter)
 router.use('/basket', basketRouter)
-router.use('/basket-product', basketProductRouter)
+// router.use('/basket', basketProductRouter)
 
 module.exports = router

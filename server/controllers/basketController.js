@@ -1,5 +1,6 @@
 const { Basket } = require('../models/models')
 const ApiError = require('../error/ApiError')
+// ! Возможно надо будет убрать
 
 class BasketController {
 
@@ -13,9 +14,12 @@ class BasketController {
 		}
 	}
 
-	async getAll(req, res) {
-		const baskets = await Basket.findAll()
-		return res.json(baskets)
+	async getBasket(req, res) {
+		const { userId } = req.query
+		const basket = await Basket.findOne({
+			where: { userId }
+		})
+		return res.json(basket)
 	}
 
 

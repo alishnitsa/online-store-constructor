@@ -30,13 +30,37 @@ const fetchProducts = async (typeId, brandId, page, limit = 5) => { // Полу�
 		params: {
 			typeId, brandId, page, limit
 		}
-	}) // Ответ сервера при получении
+	})
 	return data // Результат получения
 }
+
 
 const fetchOneProduct = async (id) => { // Получение одного девайса
 	const { data } = await $host.get('api/product/' + id) // Ответ сервера при получении
 	return data // Результат получения
+}
+
+const createBasketProduct = async (productId) => { // ! Надо исправить
+	const { data } = await $host.post('api/product/' + productId)
+	return data
+}
+
+const fetchBasketProducts = async (basketId) => {
+	const { data } = await $authHost.get('api/basket', {
+		params: {
+			basketId
+		}
+	})
+	return data
+}
+
+const fetchBasket = async (userId) => {
+	const { data } = await $authHost.get('api/basket', {
+		params: {
+			userId
+		}
+	})
+	return data
 }
 
 export {
@@ -46,5 +70,8 @@ export {
 	fetchBrands,
 	createProduct,
 	fetchProducts,
-	fetchOneProduct
+	fetchOneProduct,
+	createBasketProduct,
+	fetchBasketProducts,
+	fetchBasket
 }

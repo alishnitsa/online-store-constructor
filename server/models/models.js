@@ -6,98 +6,52 @@ const { DataTypes } = require('sequelize') // Импорт класса, с по
 const User = sequelize.define('user', { // Пользователь
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true }, // Id
 	name: { type: DataTypes.STRING, allowNull: false }, // Имя
-	date_of_birth: { type: DataTypes.DATEONLY, allowNull: false }, // Дата рождения
-	email: { type: DataTypes.STRING, unique: true }, // Почта
+	login: { type: DataTypes.STRING, unique: true }, // Логин (почта)
 	password: { type: DataTypes.STRING }, // Пароль
 	role: { type: DataTypes.STRING, defaultValue: "USER" } // Роль (ADMIN или USER)
 })
 
-const Basket = sequelize.define('basket', { // Корзина
+const Project = sequelize.define('project', { // Проект
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true }, // Id
+	name: { type: DataTypes.STRING, allowNull: false }, // Наименование
 })
 
-const BasketProduct = sequelize.define('basket_product', { // Корзина товаров
+const HeaderPattern = sequelize.define('header_pattern', { // Шапка
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true }, // Id
+	name: { type: DataTypes.STRING, allowNull: false }, // Имя
+	code: { type: DataTypes.STRING, defaultValue: "" } // Код (или файл)
 })
 
-const Product = sequelize.define('product', { // Товар
+const BlockPattern = sequelize.define('block_pattern', { // Блок
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true }, // Id
-	name: { type: DataTypes.STRING, unique: true, allowNull: false }, // Название
-	quantity: { type: DataTypes.INTEGER, defaultValue: 0 },
-	price: { type: DataTypes.INTEGER, allowNull: false }, // Цена
-	img: { type: DataTypes.STRING, allowNull: false }, // Картинка
+	name: { type: DataTypes.STRING, allowNull: false }, // Имя
+	code: { type: DataTypes.STRING, defaultValue: "" } // Код (или файл)
 })
 
-const Type = sequelize.define('type', { // Тип
+const FooterPattern = sequelize.define('footer_pattern', { // Подвал
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true }, // Id
-	name: { type: DataTypes.STRING, unique: true, allowNull: false }, // Название
-})
-
-const Brand = sequelize.define('brand', { // Бренд
-	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true }, // Id
-	name: { type: DataTypes.STRING, unique: true, allowNull: false }, // Название
-})
-
-// const Rating = sequelize.define('rating', { // Рейтинг
-// 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true }, // Id
-// 	rate: { type: DataTypes.INTEGER, allowNull: false }, // Оценка 
-// })
-
-const ProductInfo = sequelize.define('info', { // Информация о товаре
-	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true }, // Id
-	title: { type: DataTypes.STRING, allowNull: false }, // Название характеристики
-	description: { type: DataTypes.STRING, allowNull: false }, // Описание характеристики
-})
-
-const ProductKey = sequelize.define('key', { // Лицензионный ключ товара
-	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-	key: { type: DataTypes.STRING, allowNull: false }
-})
-
-const TypeBrand = sequelize.define('type_brand', { // Временной таблица для связи М - М между моделями Тип и Бренд
-	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true }, // Id
+	name: { type: DataTypes.STRING, allowNull: false }, // Имя
+	code: { type: DataTypes.STRING, defaultValue: "" } // Код (или файл)
 })
 
 // Связи (1 - 1, 1 - М, М - 1, М - М)
 
-User.hasOne(Basket) // 1 - 1
-Basket.belongsTo(User) // Корзина пренадлежит пользователю
+User.hasMany(Project) // 1 - M
+Project.belongsTo(User) // Проект пренадлежит пользователю
 
-// User.hasMany(Rating) // 1 - M
-// Rating.belongsTo(User) // Рейтинг пренадлежит пользователю
+Project.hasOne(HeaderPattern) // 1 - 1
+HeaderPattern.belongsTo(Project) // Шапка пренадлежит проекту
 
-Basket.hasMany(BasketProduct) // 1 - M
-BasketProduct.belongsTo(Basket) // Корзина товаров пренадлежит корзине
+Project.hasMany(BlockPattern) // 1 - M
+BlockPattern.belongsTo(Project) // Блок пренадлежит проекту
 
-Type.hasMany(Product) // 1 - M
-Product.belongsTo(Type) // Товар пренадлежит типу
-
-Brand.hasMany(Product) // 1 - M
-Product.belongsTo(Brand) // Товар пренадлежит бренду
-
-// Product.hasMany(Rating) // 1 - M
-// Rating.belongsTo(Product) // Рейтинг пренадлежит товару
-
-Product.hasMany(BasketProduct) // 1 - M
-BasketProduct.belongsTo(Product) // Корзина товаров пренадлежит девайсу
-
-Product.hasMany(ProductInfo, { as: 'info' }) // 1 - M
-ProductInfo.belongsTo(Product) // Информация товара пренадлежит товару
-
-Product.hasMany(ProductKey, { as: 'key' }) // 1 - M
-ProductKey.belongsTo(Product) // Ключ товара принадлежит товару
-
-Type.belongsToMany(Brand, { through: TypeBrand }) // M - M
-Brand.belongsToMany(Type, { through: TypeBrand }) // Бренд пренадлежит типу
+Project.hasOne(FooterPattern) // 1 - 1
+FooterPattern.belongsTo(Project) // Подвал пренадлежит проекту
 
 module.exports = { // Экспорт объектов
 	User,
-	Basket,
-	BasketProduct,
-	Product,
-	Type,
-	Brand,
-	TypeBrand,
-	ProductInfo,
-	ProductKey
+	Project,
+	HeaderPattern,
+	BlockPattern,
+	FooterPattern
 }

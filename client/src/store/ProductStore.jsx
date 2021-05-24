@@ -4,10 +4,12 @@ class ProductStore { // Глобальное состояние
 	constructor() {
 		// Store
 		this._types = [] // Типы
-
 		this._brands = [] // Бренды
-
 		this._products = [] // Девайсы
+
+		this._basket = {}
+
+		this._basketProducts = []
 
 		this._selectedType = {} // Выделенное поле типа
 		this._selectedBrand = {} // Выделенное поле бренда
@@ -46,6 +48,14 @@ class ProductStore { // Глобальное состояние
 		this._totalCount = count
 	}
 
+	setBasketProducts(basketProducts) {
+		this._basketProducts = basketProducts
+	}
+
+	setBasket(basket) {
+		this._basket = basket
+	}
+
 	// Геттеры
 	// Вызываются если переменная внутри была изменена
 	get brands() {
@@ -76,6 +86,13 @@ class ProductStore { // Глобальное состояние
 		return this._limit
 	}
 
+	get basketProducts() {
+		return this._basketProducts
+	}
+
+	get basket() {
+		return this._basket
+	}
 }
 
 export { ProductStore }

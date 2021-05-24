@@ -20,9 +20,6 @@ class UserController { // Контроллер для пользователя
 		if (!name) { // Если поля логина и пароля пустые, то возвращаем ошибку
 			return next(ApiError.badRequest('Некорректное имя'))
 		}
-		if (!date_of_birth) { // Если поля логина и пароля пустые, то возвращаем ошибку
-			return next(ApiError.badRequest('Некорректная дата рождения'))
-		}
 		const candidate = await User.findOne({ where: { email } }) // Проверка существования пользователя в системе
 		if (candidate) {
 			return next(ApiError.badRequest('Пользователь с таким email уже существует'))
@@ -51,6 +48,18 @@ class UserController { // Контроллер для пользователя
 	async check(req, res, next) { // Проверка
 		const token = generateJwt(req.user.id, req.user.email, req.user.role)
 		res.json({ token })
+	}
+
+	// ! Костыль. Принимается только через параметр
+	async currentUser(req, res, next) {
+		const { email } = req.query
+
+		const userId = await User.findOne({
+			where: {
+				email: email || 'incorrect value'
+			}
+		})
+		res.json({ userId })
 	}
 }
 
