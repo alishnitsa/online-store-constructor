@@ -39,14 +39,23 @@ const FooterPattern = sequelize.define('footer_pattern', { // Подвал
 User.hasMany(Project) // 1 - M
 Project.belongsTo(User) // Проект пренадлежит пользователю
 
-Project.hasOne(HeaderPattern) // 1 - 1
-HeaderPattern.belongsTo(Project) // Шапка пренадлежит проекту
+// Project.hasOne(HeaderPattern) // 1 - 1
+// HeaderPattern.belongsTo(Project) // Шапка пренадлежит проекту
 
-Project.hasMany(BlockPattern) // 1 - M
-BlockPattern.belongsTo(Project) // Блок пренадлежит проекту
+// Project.hasMany(BlockPattern) // 1 - M
+// BlockPattern.belongsTo(Project) // Блок пренадлежит проекту
 
-Project.hasOne(FooterPattern) // 1 - 1
-FooterPattern.belongsTo(Project) // Подвал пренадлежит проекту
+// Project.hasOne(FooterPattern) // 1 - 1
+// FooterPattern.belongsTo(Project) // Подвал пренадлежит проекту
+
+HeaderPattern.hasOne(Project) // 1 - 1
+Project.belongsTo(HeaderPattern) // Шапка пренадлежит проекту
+
+BlockPattern.hasOne(Project) // M - 1
+Project.belongsTo(BlockPattern) // Блок пренадлежит проекту
+
+FooterPattern.hasOne(Project) // 1 - 1
+Project.belongsTo(FooterPattern) // Шапка пренадлежит проекту
 
 module.exports = { // Экспорт объектов
 	User,
