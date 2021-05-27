@@ -5,19 +5,17 @@ const router = new Router() // Создание объекта роутер
 // TODO: Надо сделать роутеры и контроллеры для корзины и рейтинга
 
 // Импорт роутеров
-const productRouter = require('./productRouter'),
+const projectRouter = require('./projectRouter'),
 	userRouter = require('./userRouter'),
-	brandRouter = require('./brandRouter'),
-	typeRouter = require('./typeRouter'),
-	basketRouter = require('./basketRouter')
-basketProductRouter = require('./basketProductRouter')
+	headerPatternRouter = require('./headerPatternRouter'),
+	blockPatternRouter = require('./blockPatternRouter'),
+	footerPatternRouter = require('./footerPatternRouter')
 
 // url, router
 router.use('/user', userRouter)
-router.use('/type', typeRouter)
-router.use('/brand', brandRouter)
-router.use('/product', productRouter)
-router.use('/basket', basketRouter)
-// router.use('/basket', basketProductRouter)
+router.use('/project', projectRouter)
+router.use('/header-pattern', headerPatternRouter)
+router.use('/block-pattern', blockPatternRouter)
+router.use('/footer-pattern', footerPatternRouter)
 
 module.exports = router
