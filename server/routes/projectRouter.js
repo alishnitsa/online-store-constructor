@@ -9,6 +9,6 @@ const projectController = require('../controllers/projectController')
 
 router.post('/', projectController.create) // Создание проекта
 router.get('/', projectController.getAll) // Получение проекта
-router.get('/download', projectController.generate) // Получение проекта
+router.get('/download/:id', projectController.generate) // Получение проекта
 
 module.exports = router

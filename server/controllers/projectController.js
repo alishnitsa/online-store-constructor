@@ -9,7 +9,7 @@ class ProjectController { // Контроллер для бренда
 	}
 
 	async getAll(req, res) {
-		const { userId } = req.body
+		const { userId } = req.query
 		const projects = await Project.findAll({
 			where: {
 				userId
