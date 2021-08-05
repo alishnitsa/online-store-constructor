@@ -3,14 +3,14 @@ import jwt_decode from "jwt-decode"; // Декодирование токена
 
 // ! Иногда проблема с check в firefox
 
-const registration = async (email, password) => {
-	const { data } = await $host.post('api/user/registration', { email, password }) // Ответ сервера при регистрации
+const registration = async (name, email, password) => {
+	const { data } = await $host.post('api/user/registration', { name, login: email, password }) // Ответ сервера при регистрации
 	localStorage.setItem('token', data.token) // Помещаем токен в локальное хранилище
 	return jwt_decode(data.token) // Результат декодирования
 }
 
 const login = async (email, password) => {
-	const { data } = await $host.post('api/user/login', { email, password }) // Ответ сервера при авторизации
+	const { data } = await $host.post('api/user/login', { login: email, password }) // Ответ сервера при авторизации
 	localStorage.setItem('token', data.token) // Помещаем токен в локальное хранилище
 	return jwt_decode(data.token) // Результат декодирования
 }

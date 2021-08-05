@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { Context } from '..'
 import { authRoutes, publicRoutes } from '../routes'
-import { SHOP_ROUTE } from '../utils/consts'
+import { MAIN_ROUTE } from '../utils/consts'
 
 const AppRouter = () => {
 	const { user } = useContext(Context) // Хук для работы с контекстом
@@ -20,8 +20,9 @@ const AppRouter = () => {
 				)
 			}
 
-			{/* В случае не совпадения переход на страницу магазина */}
-			<Redirect to={SHOP_ROUTE} />
+			{/* В случае не совпадения переход на главную страницу */}
+			{/* // ! Изменить путь на главную страницу */}
+			<Redirect to={MAIN_ROUTE} />
 		</Switch>
 	)
 }

@@ -24,8 +24,6 @@ const ProductItem = ({ product }) => { // Элемент списка девай
 				<div className=" mt-1 d-flex justify-content-between align-items-center">
 					{product.name}
 				</div>
-
-
 			</Card>
 		</Col>
 	)

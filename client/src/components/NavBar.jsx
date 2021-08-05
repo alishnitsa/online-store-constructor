@@ -4,7 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import { Button, Container } from "react-bootstrap";
 import { NavLink, useHistory } from 'react-router-dom';
-import { ADMIN_ROUTE, LOGIN_ROUTE, SHOP_ROUTE } from '../utils/consts';
+import { ADMIN_ROUTE, LOGIN_ROUTE, MAIN_ROUTE } from '../utils/consts';
 import { observer } from 'mobx-react-lite';
 
 const NavBar = observer(() => {
@@ -19,12 +19,12 @@ const NavBar = observer(() => {
 	}
 
 	return (
-		<Navbar bg="dark" variant="dark">
+		<Navbar style={{ backgroundColor: '#272222' }} >
 			<Container>
 				<NavLink
-					to={SHOP_ROUTE}
-					style={{ color: 'white' }}
-				>Купи Девайс</NavLink>
+					to={MAIN_ROUTE}
+					style={{ color: 'white', fontSize: 35 }}
+				>STONKS</NavLink>
 
 				{
 					user.isAuth ? // Проверка на авторизацию
@@ -49,6 +49,13 @@ const NavBar = observer(() => {
 								className={"ml-2"}
 							>
 								Выйти
+							</Button>
+							<Button
+								variant={"outline-light"}
+								onClick={() => logOut()} // Выход из аккаунта
+								className={"ml-2"}
+							>
+								Назад
 							</Button>
 						</Nav>
 						:

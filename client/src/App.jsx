@@ -21,7 +21,7 @@ const App = observer(() => {
 	})
 
 	if (loading) {
-		return <Spinner animation={"grow"} /> // loader
+		return <Spinner animation={"grow"} color={"white"} /> // loader
 	}
 
 	return (

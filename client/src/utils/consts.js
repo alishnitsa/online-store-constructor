@@ -4,6 +4,5 @@ export const
 	ADMIN_ROUTE = '/admin',
 	LOGIN_ROUTE = '/login',
 	REGISTRATION_ROUTE = '/registration',
-	SHOP_ROUTE = '/',
-	BASKET_ROUTE = '/basket',
-	PRODUCT_ROUTE = '/product'
+	MAIN_ROUTE = '/',
+	PROJECTS_ROUTE = '/projects'
